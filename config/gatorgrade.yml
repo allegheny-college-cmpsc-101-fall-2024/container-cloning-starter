@@ -1,0 +1,96 @@
+- source/perform-container-cloning.py:
+    - description: Ensure that perform-container-cloning.py file exists in the source/ directory
+      check: ConfirmFileExists
+    - description: Complete all TODOs, remove the TODO markers, and rewrite comments for perform-container-cloning.py
+      check: MatchFileFragment
+      options:
+        fragment: TODO
+        count: 0
+        exact: true
+    - description: Create a sufficient number of docstring (i.e., multiple-line) comments in perform-container-cloning.py
+      check: CountMultipleLineComments
+      options:
+        language: "Python"
+        count: 3
+        exact: false
+    - description: Create a sufficient number of single-line comments in perform-container-cloning.py
+      check: CountSingleLineComments
+      options:
+        language: "Python"
+        count: 3
+        exact: false
+
+# perform checks on a file
+- writing/reflection.md:
+    - description: Ensure that the reflection.md file exists in the writing/ directory
+      check: ConfirmFileExists
+    - description: Complete all TODOs, remove the TODO markers, and rewrite comments for reflection.md
+      check: MatchFileFragment
+      options:
+        fragment: TODO
+        count: 0
+        exact: true
+    - description: Delete the 'Add Your Name Here' prompt in the reflection file
+      check: MatchFileFragment
+      options:
+        fragment: "Add Your Name Here"
+        count: 0
+        exact: true
+    - description: Write a minimum number of meaningful words in the reflection
+      check: CountFileWords
+      options:
+        count: 250
+        exact: false
+    - description: Confirm that the markdown file has the correct number of headers
+      check: CountMarkdownTags
+      options:
+        tag: heading
+        count: 8
+        exact: false
+    - description: Confirm that the markdown file has the correct number of fenced code blocks
+      check: CountMarkdownTags
+      options:
+        tag: code_block
+        count: 2
+        exact: false
+
+# run the program and confirm the existence of fragments in its output
+- description: Run the perform-container-cloning.py program and confirm the correct number of non-blank lines in the output
+  check: CountCommandOutput
+  options:
+    command: "python source/perform-container-cloning.py"
+    count: 2
+    exact: true
+
+# run the program and confirm the existence of fragments in its output
+- description: "Run the perform-container-cloning.py program and confirm the non-existence of content in its output: no incorrect output"
+  check: MatchCommandFragment
+  options:
+    command: "python source/perform-container-cloning.py"
+    fragment: "not correct"
+    count: 0
+    exact: true
+
+# run the program and confirm the existence of fragments in its output
+- description: "Run the perform-container-cloning.py program and confirm the existence of content in its output: correct output"
+  check: MatchCommandFragment
+  options:
+    command: "python source/perform-container-cloning.py"
+    fragment: "[1, 2, 3, 4] and [1, 2, 5, 6]"
+    count: 1
+    exact: true
+
+# run the program and confirm the existence of fragments in its output
+- description: "Run the perform-container-cloning.py program and confirm the existence of content in its output: correct output"
+  check: MatchCommandFragment
+  options:
+    command: "python source/perform-container-cloning.py"
+    fragment: "test case passed"
+    count: 1
+    exact: true
+
+# confirm a suitable number of commit messages
+- description: Have at least a specific minimum of commits in repository
+  check: CountCommits
+  options:
+    count: 5
